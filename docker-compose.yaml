@@ -1,0 +1,43 @@
+services:
+  app:
+    build: ./docker/react
+    tty: true
+    working_dir: /usr/src/app
+    volumes:
+      - ./myapp:/usr/src/app
+    command: sh -c "yarn start"
+    # environment:
+    #   - CHOKIDAR_USEPOLLING=true
+    ports:
+      - "3000:3000"
+
+  db:
+    image: mysql:8.0
+    container_name: ${DB_CONTAINER}
+    environment:
+      MYSQL_ROOT_USER: ${ROOTUSER}
+      MYSQL_ROOT_PASSWORD: ${ROOTPASS}
+      MYSQL_DATABASE: ${DATABASE}
+      MYSQL_USER: ${USER_NAME}
+      MYSQL_PASSWORD: ${USER_PASSWORD}
+      
+      TZ: "Asia/Tokyo"
+    volumes:
+      - ./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+    env_file:
+      - .env
+    ports:
+      - 3366:3306
+
+  go:
+    build: ./docker/go
+    volumes:
+      - ./go/src:/go/src
+      - ./.env:/go/src/.env
+    tty: true
+    ports:
+      - "8088:8000"
+    environment:
+      MYSQL_HOST: ${DB_CONTAINER}
+    depends_on:
+      - db
