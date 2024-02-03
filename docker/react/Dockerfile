@@ -1,12 +1,11 @@
 FROM node
 
-# WORKDIR /usr/src/app
-RUN pwd
-# COPY ["package.json", "yarn.lock", "./"]
-COPY package.json ./
+WORKDIR /usr/src/app
+
+# パッケージのインストール
+COPY package.json .
+COPY yarn.lock .
 # パッケージをインストール
-# RUN yarn install
-# ファイルを全部作業用ディレクトリにコピー
+RUN yarn install
 # コンテナを起動する際に実行されるコマンド
-# ENTRYPOINT [ "yarn", "start" ]
 RUN apt-get update
