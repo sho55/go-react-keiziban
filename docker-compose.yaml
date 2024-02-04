@@ -5,8 +5,11 @@ services:
     build: ./myapp
     tty: true
     working_dir: /usr/src/app
+    volumes:
+      - ./myapp:/usr/src/app
     ports:
       - "3000:3000"
+
 
   db:
     image: mysql:8.0
