@@ -85,3 +85,4 @@ coverage.txt
 # // 追記
 /.DS_Store
 /yarn.lock
+/docker/mysql/data/
