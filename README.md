@@ -10,7 +10,7 @@ git clone git@github.com:sho55/go-react-keiziban.git
 
 ```
 cd go-react-keiziban
-cp .env.example .env
+cp env.example .env
 ```
 
 ### docker composeで立ち上げ
